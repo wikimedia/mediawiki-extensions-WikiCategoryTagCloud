@@ -62,7 +62,6 @@ function renderTagCloud( $input, $params, $parser ) {
 	$MIN_SIZE = 77;
 	$INCREASE_FACTOR = 100;
 
-	global $wgScript;
 	$dbr = wfGetDB( DB_SLAVE );
 	extract( $dbr->tableNames( 'categorylinks' ) );
 
