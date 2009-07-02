@@ -1,6 +1,8 @@
 <?php
 /**
  * Wiki Category Tag Cloud
+ * @file
+ * @ingroup Extensions
  * @author Daniel Friesen http://daniel.friesen.name
  * @version 1.0.1
  * 
@@ -23,27 +25,37 @@
 
 if( !defined( 'MEDIAWIKI' ) ) die( "This is an extension to the MediaWiki package and cannot be run standalone." );
 
-$wgExtensionCredits['parserhook'][] = array (
+$wgExtensionCredits['parserhook'][] = array(
 	'name' => 'Wiki Category Tag Cloud',
-	'url' => 'http://mediawiki.org/wiki/Extension:WikiCategoryTagCloud',
 	'version' => '1.0.1',
 	'author' => "[http://mediawiki.org/wiki/User:Dantman Daniel Friesen]",
-	'description' => "A Category Tag Cloud derived, improved, and fixed from the YetAnotherTagCloud Extension",
+	'description' => 'A Category Tag Cloud derived, improved, and fixed from the YetAnotherTagCloud Extension',
+	'url' => 'http://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud',
 );
 
-$wgExtensionFunctions[] = 'registerTagCloudExtension';
+// Avoid unstubbing $wgParser too early on modern (1.12+) MW versions, as per r35980
+if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
+	$wgHooks['ParserFirstCallInit'][] = 'registerTagCloudExtension';
+} else {
+	$wgExtensionFunctions[] = 'registerTagCloudExtension';
+}
+
+// Hooked function
+$wgHooks['ArticleSave'][] = 'invalidateCache';
+
 function registerTagCloudExtension() {
 	global $wgParser;
-	$wgParser->setHook('tagcloud', 'renderTagCloud');
-	$wgHooks['ArticleSave'][] = 'invalidateCache()';
+	$wgParser->setHook( 'tagcloud', 'renderTagCloud' );
+	return true;
 }
 
 function invalidateCache() {
-	$titles[0] = explode( "\n", wfMsg('tagcloudpages') );
+	$titles[0] = explode( "\n", wfMsg( 'tagcloudpages' ) );
 
-	for ($i = 0; $i < count($titles); $i++) {
-		Title :: newFromText($titles[$i])->invalidateCache();
+	for( $i = 0; $i < count( $titles ); $i++) {
+		Title::newFromText( $titles[$i] )->invalidateCache();
 	}
+	return true;
 }
 
 function renderTagCloud( $input, $params, $parser ) {
@@ -51,72 +63,69 @@ function renderTagCloud( $input, $params, $parser ) {
 	$INCREASE_FACTOR = 100;
 
 	global $wgScript;
-	$dbr = &wfGetDB(DB_SLAVE);
-	extract($dbr->tableNames('categorylinks'));
+	$dbr = wfGetDB( DB_SLAVE );
+	extract( $dbr->tableNames( 'categorylinks' ) );
 
 	$cloud_style = @$params['style'];
 	$cloud_classes = preg_split( '/\s+/', @$params['class'] );
-	array_unshift( $cloud_classes, "tagcloud" );
+	array_unshift( $cloud_classes, 'tagcloud' );
 	$link_style = $params['linkstyle'];
 	$link_classes = preg_split( '/\s+/', @$params['linkclass'] );
-	$min_count_input = getBoxExtensionOption($input, "min_count");
-	$min_size_input = getBoxExtensionOption($input, "min_size");
-	$increase_factor_input = getBoxExtensionOption($input, "increase_factor");
-	if ($min_size_input != null) {
+	$min_count_input = getBoxExtensionOption( $input, 'min_count' );
+	$min_size_input = getBoxExtensionOption( $input, 'min_size' );
+	$increase_factor_input = getBoxExtensionOption( $input, 'increase_factor' );
+	if( $min_size_input != null ) {
 		$MIN_SIZE = $min_size_input;
 	}
-	if ($increase_factor_input != null) {
+	if( $increase_factor_input != null ) {
 		$INCREASE_FACTOR = $increase_factor_input;
 	}
-	if ($min_count_input == null) {
+	if( $min_count_input == null ) {
 		$min_count_input = 0;
 	}
 
-	$excluded_input = getBoxExtensionOption($input, "exclude");
+	$excluded_input = getBoxExtensionOption( $input, 'exclude' );
 
-	$exclude_condition = "";
-	if (strlen($excluded_input) > 0) {
-		$excluded_categories = explode(",", $excluded_input);		
-		if (count($excluded_categories) > 0) {
+	$exclude_condition = '';
+	if( strlen( $excluded_input ) > 0 ) {
+		$excluded_categories = explode( ",", $excluded_input );
+		if( count( $excluded_categories ) > 0 ) {
 			$exclude_condition = " WHERE cl_to NOT IN (";
-			for ($i = 0; $i < count($excluded_categories); $i++) {
-				$exclude_condition = $exclude_condition . "'" . trim($excluded_categories[$i]) . "'";
-				if ($i < count($excluded_categories) - 1) {
+			for( $i = 0; $i < count( $excluded_categories ); $i++ ) {
+				$exclude_condition = $exclude_condition . "'" . trim( $excluded_categories[$i] ) . "'";
+				if( $i < count( $excluded_categories ) - 1 ) {
 					$exclude_condition = $exclude_condition . ",";
 				}
 			}
-			$exclude_condition = $exclude_condition . ")";			
+			$exclude_condition = $exclude_condition . ")";
 		}
 	}
 
-	//$exclude_condition = mysql_real_escape_string($exclude_condition);
-	//$min_count_input = mysql_real_escape_string($min_count_input);
-
 	$sql = "SELECT cl_to as title, COUNT(*) as count FROM $categorylinks  " . $exclude_condition . " GROUP BY cl_to HAVING count >= $min_count_input ORDER BY cl_to ASC";
 
-	$res = $dbr->query($sql);
-	$count = $dbr->numRows($res);
+	$res = $dbr->query( $sql );
+	$count = $dbr->numRows( $res );
 
-	$htmlOut = "";
+	$htmlOut = '';
 	$htmlOut = $htmlOut . "<div class=\"" . implode( ' ', $cloud_classes ) . "\" style=\"{$cloud_style}\">";
 
 	$min = 1000000;
 	$max = -1;
 
-	for ($i = 0; $i < $count; $i++) {
-		$obj = $dbr->fetchObject($res);
+	for( $i = 0; $i < $count; $i++ ) {
+		$obj = $dbr->fetchObject( $res );
 		$tags[$i][0] = $obj->title;
 		$tags[$i][1] = $obj->count;
-		if ($obj->count < $min) {
+		if( $obj->count < $min ) {
 			$min = $obj->count;
 		}
-		if ($obj->count > $max) {
+		if( $obj->count > $max ) {
 			$max = $obj->count;
 		}
 	}
 
-	for ($i = 0; $i < $count; $i++) {
-		$textSize = $MIN_SIZE + ($INCREASE_FACTOR * ($tags[$i][1])) / ($max);
+	for( $i = 0; $i < $count; $i++ ) {
+		$textSize = $MIN_SIZE + ( $INCREASE_FACTOR * ( $tags[$i][1] ) ) / ( $max );
 		$title = Title::makeTitle( NS_CATEGORY, $tags[$i][0] );
 		$style = $link_style;
 		if( $style != '' && $style{-1} != ';' ) $style .= ';'; 
@@ -124,16 +133,16 @@ function renderTagCloud( $input, $params, $parser ) {
 		$currentRow = "<a class=\"" . implode( ' ', $link_classes ) . "\" style=\"{$style}\" href=\"" . $title->getLocalURL() . "\">" . $title->getText() . "</a>&nbsp; ";
 		$htmlOut = $htmlOut . $currentRow;
 	}
-	$htmlOut = $htmlOut . "</div>";
+	$htmlOut = $htmlOut . '</div>';
 	return $htmlOut;
 }
 
-function getBoxExtensionOption($input, $name, $isNumber = false) {
-	if (preg_match("/^\s*$name\s*=\s*(.*)/mi", $input, $matches)) {
-		if ($isNumber) {
-			return intval($matches[1]);
+function getBoxExtensionOption( $input, $name, $isNumber = false ) {
+	if( preg_match( "/^\s*$name\s*=\s*(.*)/mi", $input, $matches ) ) {
+		if( $isNumber ) {
+			return intval( $matches[1] );
 		} else {
-			return htmlspecialchars($matches[1]);
+			return htmlspecialchars( $matches[1] );
 		}
 	}
 }
