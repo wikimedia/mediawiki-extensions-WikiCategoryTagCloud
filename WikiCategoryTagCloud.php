@@ -63,7 +63,6 @@ function renderTagCloud( $input, $params, $parser ) {
 	$INCREASE_FACTOR = 100;
 
 	$dbr = wfGetDB( DB_SLAVE );
-	extract( $dbr->tableNames( 'categorylinks' ) );
 
 	$cloud_style = @$params['style'];
 	$cloud_classes = preg_split( '/\s+/', @$params['class'] );
@@ -100,7 +99,7 @@ function renderTagCloud( $input, $params, $parser ) {
 		}
 	}
 
-	$sql = "SELECT cl_to as title, COUNT(*) as count FROM $categorylinks  " . $exclude_condition . " GROUP BY cl_to HAVING count >= $min_count_input ORDER BY cl_to ASC";
+	$sql = "SELECT cl_to as title, COUNT(*) as count FROM {$dbr->tableName( 'categorylinks' )} " . $exclude_condition . " GROUP BY cl_to HAVING count >= $min_count_input ORDER BY cl_to ASC";
 
 	$res = $dbr->query( $sql );
 	$count = $dbr->numRows( $res );
