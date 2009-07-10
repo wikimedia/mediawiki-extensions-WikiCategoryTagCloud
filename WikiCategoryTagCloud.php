@@ -126,7 +126,7 @@ function renderTagCloud( $input, $params, $parser ) {
 		$textSize = $MIN_SIZE + ( $INCREASE_FACTOR * ( $tags[$i][1] ) ) / ( $max );
 		$title = Title::makeTitle( NS_CATEGORY, $tags[$i][0] );
 		$style = $link_style;
-		if ( $style != '' && $style { -1 } != ';' ) $style .= ';';
+		if ( $style != '' && substr($style, -1) != ';' ) $style .= ';';
 		$style .= "font-size: {$textSize}%;";
 		$currentRow = "<a class=\"" . implode( ' ', $link_classes ) . "\" style=\"{$style}\" href=\"" . $title->getLocalURL() . "\">" . $title->getText() . "</a>&nbsp; ";
 		$htmlOut = $htmlOut . $currentRow;
