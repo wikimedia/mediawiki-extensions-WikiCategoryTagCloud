@@ -34,18 +34,13 @@ $wgExtensionCredits['parserhook'][] = array(
 );
 
 // Avoid unstubbing $wgParser too early on modern (1.12+) MW versions, as per r35980
-if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-	$wgHooks['ParserFirstCallInit'][] = 'registerTagCloudExtension';
-} else {
-	$wgExtensionFunctions[] = 'registerTagCloudExtension';
-}
+$wgHooks['ParserFirstCallInit'][] = 'registerTagCloudExtension';
 
 // Hooked function
 $wgHooks['ArticleSave'][] = 'invalidateCache';
 
-function registerTagCloudExtension() {
-	global $wgParser;
-	$wgParser->setHook( 'tagcloud', 'renderTagCloud' );
+function registerTagCloudExtension( &$parser ) {
+	$parser->setHook( 'tagcloud', 'renderTagCloud' );
 	return true;
 }
 
