@@ -124,7 +124,7 @@ function renderTagCloud( $input, $params, $parser ) {
 		$style = $link_style;
 		if ( $style != '' && substr($style, -1) != ';' ) $style .= ';';
 		$style .= "font-size: {$textSize}%;";
-		$currentRow = "<a class=\"" . implode( ' ', $link_classes ) . "\" style=\"{$style}\" href=\"" . $title->getLocalURL() . "\">" . $title->getText() . "</a>&nbsp; ";
+		$currentRow = "<a class=\"" . implode( ' ', $link_classes ) . "\" style=\"{$style}\" href=\"" . $title->getLocalURL() . "\">" . $title->getText() . "</a>&#160; ";
 		$htmlOut = $htmlOut . $currentRow;
 	}
 	$htmlOut = $htmlOut . '</div>';
