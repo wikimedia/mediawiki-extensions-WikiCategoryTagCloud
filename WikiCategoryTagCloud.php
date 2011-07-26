@@ -95,7 +95,7 @@ function renderTagCloud( $input, $params, $parser ) {
 		}
 	}
 
-	$sql = "SELECT cl_to as title, COUNT(*) as count FROM {$dbr->tableName( 'categorylinks' )} " . $exclude_condition . " GROUP BY cl_to HAVING count >= $min_count_input ORDER BY cl_to ASC";
+	$sql = "SELECT cl_to as title, COUNT(*) as count FROM {$dbr->tableName( 'categorylinks' )} " . $exclude_condition . " GROUP BY cl_to HAVING COUNT(*) >= $min_count_input ORDER BY cl_to ASC";
 
 	$res = $dbr->query( $sql );
 	$count = $dbr->numRows( $res );
