@@ -30,7 +30,7 @@ $wgExtensionCredits['parserhook'][] = array(
 	'version' => '1.0.1',
 	'author' => "[http://mediawiki.org/wiki/User:Dantman Daniel Friesen]",
 	'description' => 'A Category Tag Cloud derived, improved, and fixed from the YetAnotherTagCloud Extension',
-	'url' => 'http://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud',
 );
 
 // Avoid unstubbing $wgParser too early on modern (1.12+) MW versions, as per r35980
