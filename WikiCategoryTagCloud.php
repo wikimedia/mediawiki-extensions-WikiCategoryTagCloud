@@ -4,7 +4,7 @@
  * @file
  * @ingroup Extensions
  * @author Daniel Friesen http://daniel.friesen.name
- * @version 1.0.1
+ * @version 1.1
  *
  * Derived from: YetAnotherTagCloud http://orangedino.com
  *
@@ -29,7 +29,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 $wgExtensionCredits['parserhook'][] = array(
 	'name' => 'Wiki Category Tag Cloud',
-	'version' => '1.0.1',
+	'version' => '1.1',
 	'author' => '[http://mediawiki.org/wiki/User:Dantman Daniel Friesen]',
 	'description' => 'A Category Tag Cloud derived, improved, and fixed from the YetAnotherTagCloud Extension',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud',
@@ -46,8 +46,15 @@ function registerTagCloudExtension( &$parser ) {
 	return true;
 }
 
-function invalidateCache() {
-	$titles[0] = explode( "\n", wfMsg( 'tagcloudpages' ) );
+function invalidateCache( &$article, &$user, &$text, &$summary, $minor, $watchthis, $sectionanchor, &$flags, &$status ) {
+	$message = wfMessage( 'tagcloudpages' )->inContentLanguage();
+
+	// If it's empty, do nothing.
+	if ( $message->isDisabled() ) {
+		return true;
+	}
+
+	$titles = explode( "\n", $message->plain() );
 
 	for ( $i = 0; $i < count( $titles ); $i++ ) {
 		$t = Title::newFromText( $titles[$i] );
@@ -55,6 +62,7 @@ function invalidateCache() {
 			$t->invalidateCache();
 		}
 	}
+
 	return true;
 }
 
