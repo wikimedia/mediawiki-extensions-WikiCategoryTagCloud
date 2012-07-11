@@ -23,12 +23,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) die( "This is an extension to the MediaWiki package and cannot be run standalone." );
+if ( !defined( 'MEDIAWIKI' ) ) {
+	die( "This is an extension to the MediaWiki package and cannot be run standalone." );
+}
 
 $wgExtensionCredits['parserhook'][] = array(
 	'name' => 'Wiki Category Tag Cloud',
 	'version' => '1.0.1',
-	'author' => "[http://mediawiki.org/wiki/User:Dantman Daniel Friesen]",
+	'author' => '[http://mediawiki.org/wiki/User:Dantman Daniel Friesen]',
 	'description' => 'A Category Tag Cloud derived, improved, and fixed from the YetAnotherTagCloud Extension',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud',
 );
@@ -49,7 +51,9 @@ function invalidateCache() {
 
 	for ( $i = 0; $i < count( $titles ); $i++ ) {
 		$t = Title::newFromText( $titles[$i] );
-		if( $t ) $t->invalidateCache();
+		if( $t ) {
+			$t->invalidateCache();
+		}
 	}
 	return true;
 }
@@ -82,26 +86,27 @@ function renderTagCloud( $input, $params, $parser ) {
 
 	$exclude_condition = '';
 	if ( strlen( $excluded_input ) > 0 ) {
-		$excluded_categories = explode( ",", $excluded_input );
+		$excluded_categories = explode( ',', $excluded_input );
 		if ( count( $excluded_categories ) > 0 ) {
-			$exclude_condition = " WHERE cl_to NOT IN (";
+			$exclude_condition = ' WHERE cl_to NOT IN (';
 			for ( $i = 0; $i < count( $excluded_categories ); $i++ ) {
 				$exclude_condition = $exclude_condition . "'" . trim( $excluded_categories[$i] ) . "'";
 				if ( $i < count( $excluded_categories ) - 1 ) {
-					$exclude_condition = $exclude_condition . ",";
+					$exclude_condition = $exclude_condition . ',';
 				}
 			}
-			$exclude_condition = $exclude_condition . ")";
+			$exclude_condition = $exclude_condition . ')';
 		}
 	}
 
-	$sql = "SELECT cl_to as title, COUNT(*) as count FROM {$dbr->tableName( 'categorylinks' )} " . $exclude_condition . " GROUP BY cl_to HAVING COUNT(*) >= $min_count_input ORDER BY cl_to ASC";
+	$sql = "SELECT cl_to AS title, COUNT(*) AS count FROM {$dbr->tableName( 'categorylinks' )} " .
+		$exclude_condition . " GROUP BY cl_to HAVING COUNT(*) >= $min_count_input ORDER BY cl_to ASC";
 
-	$res = $dbr->query( $sql );
+	$res = $dbr->query( $sql, __METHOD__ );
 	$count = $dbr->numRows( $res );
 
 	$htmlOut = '';
-	$htmlOut = $htmlOut . "<div class=\"" . implode( ' ', $cloud_classes ) . "\" style=\"{$cloud_style}\">";
+	$htmlOut = $htmlOut . '<div class="' . implode( ' ', $cloud_classes ) . "\" style=\"{$cloud_style}\">";
 
 	$min = 1000000;
 	$max = - 1;
@@ -122,9 +127,13 @@ function renderTagCloud( $input, $params, $parser ) {
 		$textSize = $MIN_SIZE + ( $INCREASE_FACTOR * ( $tags[$i][1] ) ) / ( $max );
 		$title = Title::makeTitle( NS_CATEGORY, $tags[$i][0] );
 		$style = $link_style;
-		if ( $style != '' && substr($style, -1) != ';' ) $style .= ';';
+		if ( $style != '' && substr( $style, -1 ) != ';' ) {
+			$style .= ';';
+		}
 		$style .= "font-size: {$textSize}%;";
-		$currentRow = "<a class=\"" . implode( ' ', $link_classes ) . "\" style=\"{$style}\" href=\"" . $title->getLocalURL() . "\">" . $title->getText() . "</a>&#160; ";
+		$currentRow = '<a class="' . implode( ' ', $link_classes ) .
+			"\" style=\"{$style}\" href=\"" . $title->getLocalURL() . '">' .
+			$title->getText() . '</a>&#160; ';
 		$htmlOut = $htmlOut . $currentRow;
 	}
 	$htmlOut = $htmlOut . '</div>';
