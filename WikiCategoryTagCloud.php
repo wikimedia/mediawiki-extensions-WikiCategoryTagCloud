@@ -72,11 +72,12 @@ function renderTagCloud( $input, $params, $parser ) {
 
 	$dbr = wfGetDB( DB_SLAVE );
 
-	$cloud_style = @$params['style'];
-	$cloud_classes = preg_split( '/\s+/', @$params['class'] );
-	array_unshift( $cloud_classes, 'tagcloud' );
-	$link_style = $params['linkstyle'];
-	$link_classes = preg_split( '/\s+/', @$params['linkclass'] );
+	$params += array(
+		'style' => '',
+		'class' => '',
+		'linkstyle' => '',
+		'linkclass' => '',
+	);
 	$min_count_input = getBoxExtensionOption( $input, 'min_count' );
 	$min_size_input = getBoxExtensionOption( $input, 'min_size' );
 	$increase_factor_input = getBoxExtensionOption( $input, 'increase_factor' );
@@ -114,7 +115,7 @@ function renderTagCloud( $input, $params, $parser ) {
 	$count = $dbr->numRows( $res );
 
 	$htmlOut = '';
-	$htmlOut = $htmlOut . '<div class="' . implode( ' ', $cloud_classes ) . "\" style=\"{$cloud_style}\">";
+	$htmlOut .= '<div class="tagcloud '.$params['class'].'" style="'.$params['style'].'">';
 
 	$min = 1000000;
 	$max = - 1;
@@ -134,13 +135,9 @@ function renderTagCloud( $input, $params, $parser ) {
 	for ( $i = 0; $i < $count; $i++ ) {
 		$textSize = $MIN_SIZE + ( $INCREASE_FACTOR * ( $tags[$i][1] ) ) / ( $max );
 		$title = Title::makeTitle( NS_CATEGORY, $tags[$i][0] );
-		$style = $link_style;
-		if ( $style != '' && substr( $style, -1 ) != ';' ) {
-			$style .= ';';
-		}
-		$style .= "font-size: {$textSize}%;";
-		$currentRow = '<a class="' . implode( ' ', $link_classes ) .
-			"\" style=\"{$style}\" href=\"" . $title->getLocalURL() . '">' .
+		$style = 'font-size: '.$textSize.'%; '.$params['linkstyle'];
+		$currentRow = '<a class="' . $params['linkclass'] .
+			'" style="' . $style . '" href="' . $title->getLocalURL() . '">' .
 			$title->getText() . '</a>&#160; ';
 		$htmlOut = $htmlOut . $currentRow;
 	}
