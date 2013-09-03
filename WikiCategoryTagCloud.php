@@ -21,9 +21,12 @@ $wgExtensionCredits['parserhook'][] = array(
 	'name' => 'Wiki Category Tag Cloud',
 	'version' => '1.1',
 	'author' => '[http://danf.ca/mw/ Daniel Friesen]',
-	'description' => 'A Category Tag Cloud derived, improved, and fixed from the YetAnotherTagCloud Extension',
+	'descriptionmsg' => 'wikicategorytagcloud-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud',
 );
+
+// i18n
+$wgExtensionMessagesFiles['WikiCategoryTagCloud'] = __DIR__ . '/WikiCategoryTagCloud.i18n.php';
 
 // Avoid unstubbing $wgParser too early on modern (1.12+) MW versions, as per r35980
 $wgHooks['ParserFirstCallInit'][] = 'registerTagCloudExtension';
