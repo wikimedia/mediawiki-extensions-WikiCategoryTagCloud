@@ -21,3 +21,16 @@ $messages['qqq'] = array(
 	'wikicategorytagcloud-desc' => '{{desc|name=Wiki Category Tag Cloud|http://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud}}',
 );
 
+/** German (Deutsch)
+ * @author Metalhead64
+ */
+$messages['de'] = array(
+	'wikicategorytagcloud-desc' => 'Ermöglicht das Hinzufügen von Tagclouds zu einer Seite, basierend auf Kategorien',
+);
+
+/** Ukrainian (українська)
+ * @author Andriykopanytsia
+ */
+$messages['uk'] = array(
+	'wikicategorytagcloud-desc' => 'Дозволяє додати на сторінку хмаринки теґів на основі категорій.',
+);
