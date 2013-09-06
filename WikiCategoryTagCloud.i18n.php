@@ -57,11 +57,25 @@ $messages['ja'] = array(
 	'wikicategorytagcloud-desc' => 'ページのカテゴリに基づいたタグクラウドを追加できるようにする',
 );
 
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'wikicategorytagcloud-desc' => 'Määd et müjjelesch, Wulke met Schlößelwööter en Sigge aanzezeije, di op Saachjroppe opboue.',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
 	'wikicategorytagcloud-desc' => 'Овозможува додавање на облаци од ознаки според категориите на една страница',
+);
+
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'wikicategorytagcloud-desc' => "Permette de aggiungere 'na nuvole de tag ca se base sus a le categorije d'a pàgene",
 );
 
 /** Ukrainian (українська)
