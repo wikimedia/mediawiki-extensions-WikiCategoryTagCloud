@@ -36,6 +36,13 @@ $messages['de'] = array(
 	'wikicategorytagcloud-desc' => 'Ermöglicht das Hinzufügen von Tagclouds zu einer Seite, basierend auf Kategorien',
 );
 
+/** Spanish (español)
+ * @author Fitoschido
+ */
+$messages['es'] = array(
+	'wikicategorytagcloud-desc' => 'Permite añadir nubes de etiquetas basándose en las categorías de una página',
+);
+
 /** Galician (galego)
  * @author Toliño
  */
@@ -69,6 +76,13 @@ $messages['ksh'] = array(
  */
 $messages['mk'] = array(
 	'wikicategorytagcloud-desc' => 'Овозможува додавање на облаци од ознаки според категориите на една страница',
+);
+
+/** Brazilian Portuguese (português do Brasil)
+ * @author MisterSanderson
+ */
+$messages['pt-br'] = array(
+	'wikicategorytagcloud-desc' => 'Permite adicionar nuvens de etiquetas baseadas em categorias a uma página',
 );
 
 /** tarandíne (tarandíne)
