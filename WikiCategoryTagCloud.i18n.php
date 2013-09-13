@@ -43,6 +43,13 @@ $messages['es'] = array(
 	'wikicategorytagcloud-desc' => 'Permite añadir nubes de etiquetas basándose en las categorías de una página',
 );
 
+/** French (français)
+ * @author Jean-Frédéric
+ */
+$messages['fr'] = array(
+	'wikicategorytagcloud-desc' => 'Permet d’ajouter à une page des nuages de mots-clé issus des catégories',
+);
+
 /** Galician (galego)
  * @author Toliño
  */
