@@ -85,6 +85,13 @@ $messages['mk'] = array(
 	'wikicategorytagcloud-desc' => 'Овозможува додавање на облаци од ознаки според категориите на една страница',
 );
 
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'wikicategorytagcloud-desc' => 'Permet d’apondre a una pagina de nívols de mots claus eissits de las categorias',
+);
+
 /** Brazilian Portuguese (português do Brasil)
  * @author MisterSanderson
  */
