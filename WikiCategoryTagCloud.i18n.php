@@ -106,6 +106,13 @@ $messages['roa-tara'] = array(
 	'wikicategorytagcloud-desc' => "Permette de aggiungere 'na nuvole de tag ca se base sus a le categorije d'a pàgene",
 );
 
+/** Russian (русский)
+ * @author Okras
+ */
+$messages['ru'] = array(
+	'wikicategorytagcloud-desc' => 'Позволяет добавлять на страницу облака тегов, основанное на категориях',
+);
+
 /** Ukrainian (українська)
  * @author Andriykopanytsia
  */
