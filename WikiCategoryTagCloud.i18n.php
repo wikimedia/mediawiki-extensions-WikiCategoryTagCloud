@@ -71,6 +71,13 @@ $messages['ja'] = array(
 	'wikicategorytagcloud-desc' => 'ページのカテゴリに基づいたタグクラウドを追加できるようにする',
 );
 
+/** Korean (한국어)
+ * @author Hym411
+ */
+$messages['ko'] = array(
+	'wikicategorytagcloud-desc' => '문서의 분류를 기반으로 한 태그 구름을 생성할 수 있게 합니다.',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */
