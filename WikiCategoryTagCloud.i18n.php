@@ -92,6 +92,13 @@ $messages['mk'] = array(
 	'wikicategorytagcloud-desc' => 'Овозможува додавање на облаци од ознаки според категориите на една страница',
 );
 
+/** Dutch (Nederlands)
+ * @author Siebrand
+ */
+$messages['nl'] = array(
+	'wikicategorytagcloud-desc' => 'Maakt het mogelijk woordenwolken toe te voegen op basis van categorieën van een pagina',
+);
+
 /** Occitan (occitan)
  * @author Cedric31
  */
