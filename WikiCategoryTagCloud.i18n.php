@@ -133,3 +133,10 @@ $messages['ru'] = array(
 $messages['uk'] = array(
 	'wikicategorytagcloud-desc' => 'Дозволяє додати на сторінку хмаринки теґів на основі категорій.',
 );
+
+/** Simplified Chinese (中文（简体）‎)
+ * @author Yfdyh000
+ */
+$messages['zh-hans'] = array(
+	'wikicategorytagcloud-desc' => '允许添加基于分类的标签云到页面',
+);
