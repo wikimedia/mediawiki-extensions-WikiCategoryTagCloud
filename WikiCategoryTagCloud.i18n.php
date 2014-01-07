@@ -36,6 +36,13 @@ $messages['de'] = array(
 	'wikicategorytagcloud-desc' => 'Ermöglicht das Hinzufügen von Tagclouds zu einer Seite, basierend auf Kategorien',
 );
 
+/** Lower Sorbian (dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'wikicategorytagcloud-desc' => 'Pśidawa bokoju słowne mrokawy na zakłaźe kategorijow',
+);
+
 /** Spanish (español)
  * @author Fitoschido
  */
@@ -55,6 +62,13 @@ $messages['fr'] = array(
  */
 $messages['gl'] = array(
 	'wikicategorytagcloud-desc' => 'Permite engadir nubes de etiquetas a unha páxina en base ás categorías',
+);
+
+/** Upper Sorbian (hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'wikicategorytagcloud-desc' => 'Přidawa stronje słowne mróčele na zakładźe kategorijow',
 );
 
 /** Italian (italiano)
