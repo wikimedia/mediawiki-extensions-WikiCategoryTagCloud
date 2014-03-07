@@ -50,6 +50,13 @@ $messages['es'] = array(
 	'wikicategorytagcloud-desc' => 'Permite añadir nubes de etiquetas basándose en las categorías de una página',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'wikicategorytagcloud-desc' => 'اجازه برای افزودن ابرهای برچسب براساس دسته‌بندی ها به یک صفحه',
+);
+
 /** French (français)
  * @author Jean-Frédéric
  */
