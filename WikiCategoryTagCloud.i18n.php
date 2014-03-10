@@ -71,6 +71,13 @@ $messages['gl'] = array(
 	'wikicategorytagcloud-desc' => 'Permite engadir nubes de etiquetas a unha páxina en base ás categorías',
 );
 
+/** Hebrew (עברית)
+ * @author Yona b
+ */
+$messages['he'] = array(
+	'wikicategorytagcloud-desc' => 'מאפשר להוסיף תגי ענן (tag clouds) המבוססות על קטגוריות לדף',
+);
+
 /** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
