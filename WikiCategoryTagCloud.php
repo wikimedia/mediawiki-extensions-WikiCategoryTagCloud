@@ -7,7 +7,6 @@
  * @author Daniel Friesen (http://danf.ca/mw/)
  * @license https://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
  * @link https://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud Documentation
- * @version 1.1
  *
  * Derived from: YetAnotherTagCloud http://orangedino.com
  */
@@ -19,13 +18,14 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgExtensionCredits['parserhook'][] = array(
 	'path' => __FILE__,
 	'name' => 'Wiki Category Tag Cloud',
-	'version' => '1.1',
+	'version' => '1.2.0',
 	'author' => '[http://danf.ca/mw/ Daniel Friesen]',
 	'descriptionmsg' => 'wikicategorytagcloud-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud',
 );
 
 // i18n
+$wgMessagesDirs['WikiCategoryTagCloud'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['WikiCategoryTagCloud'] = __DIR__ . '/WikiCategoryTagCloud.i18n.php';
 
 // Avoid unstubbing $wgParser too early on modern (1.12+) MW versions, as per r35980
