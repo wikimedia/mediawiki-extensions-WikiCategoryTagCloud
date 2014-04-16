@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Metalhead64"
-        ]
-    },
-    "wikicategorytagcloud-desc": "Ermöglicht das Hinzufügen von Tagclouds zu einer Seite, basierend auf Kategorien"
+	"@metadata": {
+		"authors": [
+			"Metalhead64"
+		]
+	},
+	"wikicategorytagcloud-desc": "Ermöglicht das Hinzufügen von Tagclouds zu einer Seite, basierend auf Kategorien"
 }

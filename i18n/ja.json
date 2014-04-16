@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Shirayuki"
-        ]
-    },
-    "wikicategorytagcloud-desc": "ページのカテゴリに基づいたタグクラウドを追加できるようにする"
+	"@metadata": {
+		"authors": [
+			"Shirayuki"
+		]
+	},
+	"wikicategorytagcloud-desc": "ページのカテゴリに基づいたタグクラウドを追加できるようにする"
 }

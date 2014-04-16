@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Daniel Friesen",
-            "Shirayuki"
-        ]
-    },
-    "wikicategorytagcloud-desc": "{{desc|name=Wiki Category Tag Cloud|url=http://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud}}"
+	"@metadata": {
+		"authors": [
+			"Daniel Friesen",
+			"Shirayuki"
+		]
+	},
+	"wikicategorytagcloud-desc": "{{desc|name=Wiki Category Tag Cloud|url=http://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud}}"
 }

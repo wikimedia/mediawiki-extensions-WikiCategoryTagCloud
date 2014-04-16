@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Toliño"
-        ]
-    },
-    "wikicategorytagcloud-desc": "Permite engadir nubes de etiquetas a unha páxina en base ás categorías"
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"wikicategorytagcloud-desc": "Permite engadir nubes de etiquetas a unha páxina en base ás categorías"
 }

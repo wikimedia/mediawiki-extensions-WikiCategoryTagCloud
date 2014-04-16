@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Jean-Frédéric"
-        ]
-    },
-    "wikicategorytagcloud-desc": "Permet d’ajouter à une page des nuages de mots-clé issus des catégories"
+	"@metadata": {
+		"authors": [
+			"Jean-Frédéric"
+		]
+	},
+	"wikicategorytagcloud-desc": "Permet d’ajouter à une page des nuages de mots-clé issus des catégories"
 }
