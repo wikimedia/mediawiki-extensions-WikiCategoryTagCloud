@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hym411"
+			"Hym411",
+			"Revi"
 		]
 	},
 	"wikicategorytagcloud-desc": "문서의 분류를 기반으로 한 태그 구름을 생성할 수 있게 합니다."
