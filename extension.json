@@ -1,0 +1,39 @@
+{
+	"name": "Wiki Category Tag Cloud",
+	"version": "1.3",
+	"author": [
+		"[http://danf.ca/mw/ Daniel Friesen]",
+		"Jack Phoenix"
+	],
+	"license-name": "GPL-2.0+",
+	"url": "https://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud",
+	"descriptionmsg": "wikicategorytagcloud-desc",
+	"type": "parserhook",
+	"MessagesDirs": {
+		"WikiCategoryTagCloud": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"WikiCategoryTagCloud": "WikiCategoryTagCloud.class.php"
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "WikiCategoryTagCloud"
+	},
+	"ResourceModules": {
+		"ext.wikicategorytagcloud": {
+			"styles": "ext.wikicategorytagcloud.css",
+			"position": "top"
+		}
+	},
+	"Hooks": {
+		"ArticleSave": [
+			"WikiCategoryTagCloud::invalidateCache"
+		],
+		"ParserFirstCallInit": [
+			"WikiCategoryTagCloud::register"
+		]
+	},
+	"manifest_version": 1
+}
