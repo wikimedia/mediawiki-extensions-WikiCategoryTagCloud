@@ -26,7 +26,7 @@
 
 $wgExtensionCredits['parserhook'][] = array(
 	'name' => 'Wiki Category Tag Cloud',
-	'version' => '1.3',
+	'version' => '1.3.1',
 	'author' => array( '[http://danf.ca/mw/ Daniel Friesen]', 'Jack Phoenix' ),
 	'descriptionmsg' => 'wikicategorytagcloud-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud',
@@ -49,4 +49,4 @@ $wgMessagesDirs['WikiCategoryTagCloud'] = __DIR__ . '/i18n';
 $wgHooks['ParserFirstCallInit'][] = 'WikiCategoryTagCloud::register';
 
 // Hooked function
-$wgHooks['ArticleSave'][] = 'WikiCategoryTagCloud::invalidateCache';
+$wgHooks['PageContentSave'][] = 'WikiCategoryTagCloud::invalidateCache';
