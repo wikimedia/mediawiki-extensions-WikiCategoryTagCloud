@@ -71,7 +71,7 @@ class WikiCategoryTagCloud {
 		// Add CSS into the output via ResourceLoader
 		$parser->getOutput()->addModuleStyles( 'ext.wikicategorytagcloud' );
 
-		$dbr = wfGetDB( DB_SLAVE );
+		$dbr = wfGetDB( DB_REPLICA );
 
 		$cloudStyle = ( isset( $params['style'] ) ? Sanitizer::checkCss( $params['style'] ) : '' );
 		$cloudClasses = preg_split( '/\s+/', ( isset( $params['class'] ) ? htmlspecialchars( $params['class'], ENT_QUOTES ) : '' ) );
