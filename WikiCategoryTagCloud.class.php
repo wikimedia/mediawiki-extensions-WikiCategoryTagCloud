@@ -36,7 +36,7 @@ class WikiCategoryTagCloud {
 	 * When an admin edits MediaWiki:Tagcloudpages, purge the cache for each page
 	 * listed on that message.
 	 */
-	public static function invalidateCache( &$wikiPage, &$user, &$content, &$summary, $isMinor, $isWatch, $section, &$flags, &$status ) {
+	public static function invalidateCache( WikiPage &$wikiPage, &$user, &$content, &$summary, $isMinor, $isWatch, $section, &$flags, &$status ) {
 		$at = $wikiPage->getTitle();
 
 		if ( $at->getText() == 'Tagcloudpages' && $at->getNamespace() == NS_MEDIAWIKI ) {
