@@ -23,8 +23,7 @@
 	},
 	"ResourceModules": {
 		"ext.wikicategorytagcloud": {
-			"styles": "ext.wikicategorytagcloud.css",
-			"position": "top"
+			"styles": "ext.wikicategorytagcloud.css"
 		}
 	},
 	"Hooks": {
