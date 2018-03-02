@@ -5,7 +5,7 @@
 		"[http://danf.ca/mw/ Daniel Friesen]",
 		"Jack Phoenix"
 	],
-	"license-name": "GPL-2.0+",
+	"license-name": "GPL-2.0-or-later",
 	"url": "https://www.mediawiki.org/wiki/Extension:WikiCategoryTagCloud",
 	"descriptionmsg": "wikicategorytagcloud-desc",
 	"type": "parserhook",
