@@ -78,9 +78,9 @@ class WikiCategoryTagCloud {
 		array_unshift( $cloudClasses, 'tagcloud' );
 		$linkStyle = ( isset( $params['linkstyle'] ) ? Sanitizer::checkCss( $params['linkstyle'] ) : '' );
 		$linkClasses = preg_split( '/\s+/', ( isset( $params['linkclass'] ) ? htmlspecialchars( $params['linkclass'], ENT_QUOTES ) : '' ) );
-		$minCountInput = self::getBoxExtensionOption( $input, 'min_count' );
-		$minSizeInput = self::getBoxExtensionOption( $input, 'min_size' );
-		$increaseFactorInput = self::getBoxExtensionOption( $input, 'increase_factor' );
+		$minCountInput = self::getBoxExtensionOption( $input, 'min_count', true );
+		$minSizeInput = self::getBoxExtensionOption( $input, 'min_size', true );
+		$increaseFactorInput = self::getBoxExtensionOption( $input, 'increase_factor', true );
 		if ( $minSizeInput != null ) {
 			$MIN_SIZE = $minSizeInput;
 		}
@@ -113,7 +113,7 @@ class WikiCategoryTagCloud {
 			__METHOD__,
 			array(
 				'GROUP BY' => 'cl_to',
-				'HAVING' => "COUNT(*) >= {$minCountInput}",
+				'HAVING' => 'COUNT(*) >= ' . (int)$minCountInput,
 				'ORDER BY' => 'cl_to ASC'
 			)
 		);
