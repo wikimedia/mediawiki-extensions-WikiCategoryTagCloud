@@ -15,7 +15,7 @@
 		]
 	},
 	"AutoloadClasses": {
-		"WikiCategoryTagCloud": "WikiCategoryTagCloud.class.php"
+		"WikiCategoryTagCloud": "includes/WikiCategoryTagCloud.php"
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
