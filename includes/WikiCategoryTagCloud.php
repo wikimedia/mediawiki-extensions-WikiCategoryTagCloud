@@ -28,7 +28,7 @@ class WikiCategoryTagCloud {
 	 * Register the new <tagcloud> tag with the Parser.
 	 */
 	public static function register( &$parser ) {
-		$parser->setHook( 'tagcloud', array( __CLASS__, 'renderTagCloud' ) );
+		$parser->setHook( 'tagcloud', [ __CLASS__, 'renderTagCloud' ] );
 		return true;
 	}
 
@@ -93,7 +93,7 @@ class WikiCategoryTagCloud {
 
 		$excludedInput = self::getBoxExtensionOption( $input, 'exclude' );
 
-		$excludeCondition = array();
+		$excludeCondition = [];
 		// If there are categories to be excluded, explode the "exclude=" line
 		// along commas and create an appropriate NOT IN condition for the SQL
 		// query below, escaping everything properly.
@@ -102,27 +102,27 @@ class WikiCategoryTagCloud {
 			if ( count( $excludedCategories ) > 0 ) {
 				$excludeCondition2 = 'cl_to NOT IN (';
 				$excludeCondition2 = $excludeCondition2 . $dbr->makeList( $excludedCategories );
-				$excludeCondition = array( $excludeCondition2 . ')' );
+				$excludeCondition = [ $excludeCondition2 . ')' ];
 			}
 		}
 
 		$res = $dbr->select(
 			'categorylinks',
-			array( 'cl_to AS title', 'COUNT(*) AS count' ),
+			[ 'cl_to AS title', 'COUNT(*) AS count' ],
 			$excludeCondition,
 			__METHOD__,
-			array(
+			[
 				'GROUP BY' => 'cl_to',
 				'HAVING' => 'COUNT(*) >= ' . (int)$minCountInput,
 				'ORDER BY' => 'cl_to ASC'
-			)
+			]
 		);
 		$count = $dbr->numRows( $res );
 
 		$htmlOut = '';
-		$htmlOut = $htmlOut . Html::openElement( 'div', array(
+		$htmlOut = $htmlOut . Html::openElement( 'div', [
 			'class' => implode( ' ', $cloudClasses ),
-			'style' => $cloudStyle ) );
+			'style' => $cloudStyle ] );
 
 		$min = 1000000;
 		$max = -1;
