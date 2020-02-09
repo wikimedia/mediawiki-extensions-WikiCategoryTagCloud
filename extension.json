@@ -18,8 +18,8 @@
 		"WikiCategoryTagCloud": "WikiCategoryTagCloud.class.php"
 	},
 	"ResourceFileModulePaths": {
-		"localBasePath": "",
-		"remoteExtPath": "WikiCategoryTagCloud"
+		"localBasePath": "resources",
+		"remoteExtPath": "WikiCategoryTagCloud/resources"
 	},
 	"ResourceModules": {
 		"ext.wikicategorytagcloud": {
