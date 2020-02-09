@@ -1,12 +1,13 @@
 .tagcloud {
-	background-color: #FDFDFD;
-	border: 1px solid #EEEEEE;
+	background-color: #fdfdfd;
+	border: 1px solid #eee;
 	padding: 15px 10px 15px 10px;
 	text-align: center;
 	width: 98%;
 }
+
 .tagcloud a {
-	color: #0052CB;
+	color: #0052cb;
 	font-weight: bold;
 	margin-left: 10px;
 	margin-right: 10px;
