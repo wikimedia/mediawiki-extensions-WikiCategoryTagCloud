@@ -26,8 +26,10 @@
 class WikiCategoryTagCloud {
 	/**
 	 * Register the new <tagcloud> tag with the Parser.
+	 * @param Parser $parser
+	 * @return true
 	 */
-	public static function register( &$parser ) {
+	public static function register( $parser ) {
 		$parser->setHook( 'tagcloud', [ __CLASS__, 'renderTagCloud' ] );
 		return true;
 	}
@@ -35,8 +37,18 @@ class WikiCategoryTagCloud {
 	/**
 	 * When an admin edits MediaWiki:Tagcloudpages, purge the cache for each page
 	 * listed on that message.
+	 * @param WikiPage $wikiPage
+	 * @param User $user
+	 * @param Content $content
+	 * @param CommentStoreComment &$summary
+	 * @param bool $isMinor
+	 * @param null $isWatch
+	 * @param null $section
+	 * @param int $flags
+	 * @param StatusValue $status
+	 * @return true
 	 */
-	public static function invalidateCache( WikiPage &$wikiPage, &$user, &$content, &$summary, $isMinor, $isWatch, $section, &$flags, &$status ) {
+	public static function invalidateCache( WikiPage $wikiPage, $user, $content, &$summary, $isMinor, $isWatch, $section, $flags, $status ) {
 		$at = $wikiPage->getTitle();
 
 		if ( $at->getText() == 'Tagcloudpages' && $at->getNamespace() == NS_MEDIAWIKI ) {
@@ -63,6 +75,10 @@ class WikiCategoryTagCloud {
 	/**
 	 * Callback function for register() which renders the HTML that this tag
 	 * extension outputs.
+	 * @param string $input
+	 * @param array $params
+	 * @param Parser $parser
+	 * @return string
 	 */
 	public static function renderTagCloud( $input, $params, $parser ) {
 		$MIN_SIZE = 77;
@@ -156,6 +172,12 @@ class WikiCategoryTagCloud {
 		return $htmlOut;
 	}
 
+	/**
+	 * @param string $input
+	 * @param string $name
+	 * @param bool $isNumber
+	 * @return int|string|void
+	 */
 	public static function getBoxExtensionOption( $input, $name, $isNumber = false ) {
 		if ( preg_match( "/^\s*$name\s*=\s*(.*)/mi", $input, $matches ) ) {
 			if ( $isNumber ) {
