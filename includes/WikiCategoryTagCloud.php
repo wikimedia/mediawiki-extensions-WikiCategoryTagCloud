@@ -107,8 +107,7 @@ class WikiCategoryTagCloud {
 			$minCountInput = 0;
 		}
 
-		$excludedInput = self::getBoxExtensionOption( $input, 'exclude' );
-
+		$excludedInput = self::getBoxExtensionOption( $input, 'exclude', false, true );
 		$excludeCondition = [];
 		// If there are categories to be excluded, explode the "exclude=" line
 		// along commas and create an appropriate NOT IN condition for the SQL
@@ -116,9 +115,17 @@ class WikiCategoryTagCloud {
 		if ( strlen( $excludedInput ) > 0 ) {
 			$excludedCategories = explode( ',', $excludedInput );
 			if ( count( $excludedCategories ) > 0 ) {
-				$excludeCondition2 = 'cl_to NOT IN (';
-				$excludeCondition2 = $excludeCondition2 . $dbr->makeList( $excludedCategories );
-				$excludeCondition = [ $excludeCondition2 . ')' ];
+				// T191799: categorylinks.cl_to entries use underscores, not spaces, so
+				// create a Title object for each excluded category to get its correct DBkey form
+				$finalExcludedCategories = [];
+				foreach ( $excludedCategories as $excludedCategory ) {
+					$excludedCategoryTitle = Title::makeTitleSafe( NS_CATEGORY, $excludedCategory );
+					if ( !$excludedCategoryTitle || !$excludedCategoryTitle instanceof Title ) {
+						continue;
+					}
+					$finalExcludedCategories[] = $excludedCategoryTitle->getDBkey();
+				}
+				$excludeCondition = [ 'cl_to NOT IN (' . $dbr->makeList( $finalExcludedCategories ) . ')' ];
 			}
 		}
 
@@ -176,14 +183,22 @@ class WikiCategoryTagCloud {
 	 * @param string $input
 	 * @param string $name
 	 * @param bool $isNumber
+	 * @param bool $raw Skip running htmlspecialchars() on the return value? Use this very carefully!
 	 * @return int|string|void
 	 */
-	public static function getBoxExtensionOption( $input, $name, $isNumber = false ) {
+	public static function getBoxExtensionOption( $input, $name, $isNumber = false, $raw = false ) {
 		if ( preg_match( "/^\s*$name\s*=\s*(.*)/mi", $input, $matches ) ) {
 			if ( $isNumber ) {
 				return intval( $matches[1] );
 			} else {
-				return htmlspecialchars( $matches[1], ENT_QUOTES );
+				if ( $raw ) {
+					// This option exists so that we can escape categories containing
+					// an apostrophe a bit closer to where the query is built in order
+					// to avoid double escaping (see T191799)
+					return $matches[1];
+				} else {
+					return htmlspecialchars( $matches[1], ENT_QUOTES );
+				}
 			}
 		}
 	}
