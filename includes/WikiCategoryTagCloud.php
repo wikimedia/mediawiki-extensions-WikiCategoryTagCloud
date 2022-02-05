@@ -140,7 +140,7 @@ class WikiCategoryTagCloud {
 				'ORDER BY' => 'cl_to ASC'
 			]
 		);
-		$count = $dbr->numRows( $res );
+		$count = $res->numRows();
 
 		$htmlOut = '';
 		$htmlOut = $htmlOut . Html::openElement( 'div', [
@@ -150,8 +150,7 @@ class WikiCategoryTagCloud {
 		$min = 1000000;
 		$max = -1;
 
-		for ( $i = 0; $i < $count; $i++ ) {
-			$obj = $dbr->fetchObject( $res );
+		foreach ( $res as $obj ) {
 			$tags[$i][0] = $obj->title;
 			$tags[$i][1] = $obj->count;
 			if ( $obj->count < $min ) {
