@@ -85,7 +85,7 @@ class WikiCategoryTagCloud {
 		$INCREASE_FACTOR = 100;
 
 		// Add CSS into the output via ResourceLoader
-		$parser->getOutput()->addModuleStyles( 'ext.wikicategorytagcloud' );
+		$parser->getOutput()->addModuleStyles( [ 'ext.wikicategorytagcloud' ] );
 
 		$dbr = wfGetDB( DB_REPLICA );
 
