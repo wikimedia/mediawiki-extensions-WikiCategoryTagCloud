@@ -1,4 +1,5 @@
 {
+	"name": "WikiCategoryTagCloud",
 	"private": true,
 	"scripts": {
 		"test": "grunt test"
