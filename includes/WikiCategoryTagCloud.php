@@ -149,6 +149,7 @@ class WikiCategoryTagCloud {
 
 		$min = 1000000;
 		$max = -1;
+		$i = 0;
 
 		foreach ( $res as $obj ) {
 			$tags[$i][0] = $obj->title;
@@ -159,6 +160,7 @@ class WikiCategoryTagCloud {
 			if ( $obj->count > $max ) {
 				$max = $obj->count;
 			}
+			$i++;
 		}
 
 		for ( $i = 0; $i < $count; $i++ ) {
