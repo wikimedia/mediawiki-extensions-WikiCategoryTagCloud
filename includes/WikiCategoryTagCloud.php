@@ -112,7 +112,7 @@ class WikiCategoryTagCloud {
 		// If there are categories to be excluded, explode the "exclude=" line
 		// along commas and create an appropriate NOT IN condition for the SQL
 		// query below, escaping everything properly.
-		if ( strlen( $excludedInput ) > 0 ) {
+		if ( $excludedInput !== null && strlen( trim( $excludedInput ) ) > 0 ) {
 			$excludedCategories = explode( ',', $excludedInput );
 			if ( count( $excludedCategories ) > 0 ) {
 				// T191799: categorylinks.cl_to entries use underscores, not spaces, so
