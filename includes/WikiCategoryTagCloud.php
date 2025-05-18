@@ -171,9 +171,15 @@ class WikiCategoryTagCloud {
 				$style .= ';';
 			}
 			$style .= "font-size: {$textSize}%;";
-			$currentRow = '<a class="' . implode( ' ', $linkClasses ) .
-				"\" style=\"{$style}\" href=\"" . $title->getLocalURL() . '">' .
-				$title->getText() . '</a>&#160; ';
+			$currentRow = Html::element(
+				'a',
+				[
+					'class' => implode( ' ', $linkClasses ),
+					'style' => $style,
+					'href' => $title->getLocalURL()
+				],
+				$title->getText()
+			) . '&#160; ';
 			$htmlOut = $htmlOut . $currentRow;
 		}
 		$htmlOut = $htmlOut . '</div>';
