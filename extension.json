@@ -1,6 +1,6 @@
 {
 	"name": "Wiki Category Tag Cloud",
-	"version": "1.5",
+	"version": "1.6",
 	"author": [
 		"[http://danf.ca/mw/ Daniel Friesen]",
 		"Jack Phoenix"
@@ -10,7 +10,7 @@
 	"descriptionmsg": "wikicategorytagcloud-desc",
 	"type": "parserhook",
 	"requires": {
-		"MediaWiki": ">= 1.34.0"
+		"MediaWiki": ">= 1.43.0"
 	},
 	"MessagesDirs": {
 		"WikiCategoryTagCloud": [
@@ -30,12 +30,8 @@
 		}
 	},
 	"Hooks": {
-		"PageContentSave": [
-			"WikiCategoryTagCloud::invalidateCache"
-		],
-		"ParserFirstCallInit": [
-			"WikiCategoryTagCloud::register"
-		]
+		"PageContentSave": "WikiCategoryTagCloud::invalidateCache",
+		"ParserFirstCallInit": "WikiCategoryTagCloud::register"
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }

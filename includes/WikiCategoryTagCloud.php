@@ -23,22 +23,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\Sanitizer;
+use MediaWiki\Title\Title;
 
 class WikiCategoryTagCloud {
 	/**
 	 * Register the new <tagcloud> tag with the Parser.
-	 * @param Parser $parser
-	 * @return true
+	 *
+	 * @param MediaWiki\Parser\Parser $parser
 	 */
 	public static function register( $parser ) {
 		$parser->setHook( 'tagcloud', [ __CLASS__, 'renderTagCloud' ] );
-		return true;
 	}
 
 	/**
 	 * When an admin edits MediaWiki:Tagcloudpages, purge the cache for each page
 	 * listed on that message.
+	 *
 	 * @param WikiPage $wikiPage
 	 * @param User $user
 	 * @param Content $content
@@ -75,30 +78,12 @@ class WikiCategoryTagCloud {
 	}
 
 	/**
-	 * Get a handle for performing database operations.
-	 *
-	 * This is pretty much wfGetDB() in disguise with support for MW 1.39+
-	 * _without_ triggering WMF CI warnings/errors.
-	 *
-	 * @see https://phabricator.wikimedia.org/T273239
-	 *
-	 * @return \Wikimedia\Rdbms\IDatabase|\Wikimedia\Rdbms\IReadableDatabase
-	 */
-	public static function getDBHandle() {
-		$services = MediaWikiServices::getInstance();
-		if ( method_exists( $services, 'getConnectionProvider' ) ) {
-			return $services->getConnectionProvider()->getReplicaDatabase();
-		} else {
-			return $services->getDBLoadBalancer()->getConnection( DB_REPLICA );
-		}
-	}
-
-	/**
 	 * Callback function for register() which renders the HTML that this tag
 	 * extension outputs.
+	 *
 	 * @param string $input
 	 * @param array $params
-	 * @param Parser $parser
+	 * @param MediaWiki\Parser\Parser $parser
 	 * @return string
 	 */
 	public static function renderTagCloud( $input, $params, $parser ) {
@@ -108,7 +93,7 @@ class WikiCategoryTagCloud {
 		// Add CSS into the output via ResourceLoader
 		$parser->getOutput()->addModuleStyles( [ 'ext.wikicategorytagcloud' ] );
 
-		$dbr = self::getDBHandle();
+		$dbr = MediaWikiServices::getInstance()->getConnectionProvider()->getReplicaDatabase();
 
 		$cloudStyle = ( isset( $params['style'] ) ? Sanitizer::checkCss( $params['style'] ) : '' );
 		$cloudClasses = preg_split( '/\s+/', ( isset( $params['class'] ) ? htmlspecialchars( $params['class'], ENT_QUOTES ) : '' ) );
