@@ -113,6 +113,27 @@ class WikiCategoryTagCloud {
 			$minCountInput = 0;
 		}
 
+		// Due to MediaWiki's categorylinks and linktarget change, for MW 1.45 and above, we need to use
+		// join with the link target table.
+		$useLinkTarget = version_compare( MW_VERSION, '1.45.0', '>=' );
+		if ( $useLinkTarget ) {
+			$categoryTitleColumnName = 'linktarget.lt_title';
+			$tables = [
+				'categorylinks',
+				'linktarget',
+			];
+			$joinConds = [
+				'linktarget' => [
+					'INNER JOIN',
+					'categorylinks.cl_target_id = linktarget.lt_id'
+				]
+			];
+		} else {
+			$categoryTitleColumnName = 'cl_to';
+			$tables = [ 'categorylinks' ];
+			$joinConds = [];
+		}
+
 		$excludedInput = self::getBoxExtensionOption( $input, 'exclude', false, true );
 		$excludeCondition = [];
 		// If there are categories to be excluded, explode the "exclude=" line
@@ -131,20 +152,21 @@ class WikiCategoryTagCloud {
 					}
 					$finalExcludedCategories[] = $excludedCategoryTitle->getDBkey();
 				}
-				$excludeCondition = [ 'cl_to NOT IN (' . $dbr->makeList( $finalExcludedCategories ) . ')' ];
+				$excludeCondition = [ "$categoryTitleColumnName NOT IN (" . $dbr->makeList( $finalExcludedCategories ) . ')' ];
 			}
 		}
 
 		$res = $dbr->select(
-			'categorylinks',
-			[ 'cl_to AS title', 'COUNT(*) AS count' ],
+			$tables,
+			[ "$categoryTitleColumnName AS title", 'COUNT(*) AS count' ],
 			$excludeCondition,
 			__METHOD__,
 			[
-				'GROUP BY' => 'cl_to',
+				'GROUP BY' => $categoryTitleColumnName,
 				'HAVING' => 'COUNT(*) >= ' . (int)$minCountInput,
-				'ORDER BY' => 'cl_to ASC'
-			]
+				'ORDER BY' => "$categoryTitleColumnName ASC"
+			],
+			$joinConds
 		);
 		$count = $res->numRows();
 
